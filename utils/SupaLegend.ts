@@ -64,3 +64,17 @@ export function addTodo(text: string) {
 export function toggleDone(id: string) {
   todos$[id].done.set((prev) => !prev);
 }
+
+export function deleteTodo(id: string) {
+  todos$[id].delete()
+}
+
+export function clearCompletedTodos() {
+  const todos = Object.values(todos$.get())
+
+  for (const todo of todos) {
+    if (todo.done && !todo.deleted) {
+      todos$[todo.id].delete()
+    }
+  }
+}
